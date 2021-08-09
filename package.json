@@ -20,6 +20,7 @@
     "watchpack": "^2.2.0",
     "watchpack-chokidar2": "^2.0.1",
     "web-vitals": "^2.1.0",
+    "webpack": "^4.44.2",
     "webpack-dev-server": "3.11.1"
   },
   "scripts": {
@@ -47,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "@svgr/webpack": "^5.5.0",
     "@types/d3-geo": "^3.0.2",
     "@types/react": "^17.0.15",
     "@types/topojson-client": "^3.1.0"
