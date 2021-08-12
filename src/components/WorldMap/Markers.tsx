@@ -26,15 +26,15 @@ import Teardrop from './public/icons/teardrop.svg';
 
 import Triangle from './public/icons/triangle.svg';
 
-const data = require('./public/data/sightings_data/sightings.json')
-console.log(data);
+const shape = require('./public/data/sightings_data/sightings.json')
+console.log(shape);
 
-const location = {latitude: data.latitude, longitude: data.longitude}
+const location = {latitude: shape.latitude, longitude: shape.longitude}
 console.log(location)
 
-const marker = data => {
-    boomerang: Boomerang, 
-    this.Cigar, 
+const marker = (shape.shape, shape.location) => {
+    boomerang: Boomerang.location,
+    cigar: Cigar.location,
     circle: Circle, 
     cross: Cross, 
     diamond: Diamond, 
@@ -49,3 +49,4 @@ const marker = data => {
  }
 
 
+export default marker
