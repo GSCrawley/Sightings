@@ -1,3 +1,7 @@
+# use the following to make your markers: 
+## https://stackoverflow.com/questions/21397608/put-markers-to-a-map-generated-with-topojson-and-d3-js
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
