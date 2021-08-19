@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { geoEqualEarth, geoPath } from 'd3-geo'
+import { feature } from 'topojson-client' 
+import { Feature, FeatureCollection, Geometry } from 'geojson'
 
-import Boomerang from './public/icons/boomerang.svg';
+import boomerang from './public/icons/boomerang.svg';
 
-import Cigar from './public/icons/cigar.svg';
+import cigar from './public/icons/cigar.svg';
 
-import Circle from './public/icons/circle.svg';
+import circle from './public/icons/circle.svg';
 
 import Cross from './public/icons/cross.svg';
 
@@ -26,14 +29,17 @@ import Teardrop from './public/icons/teardrop.svg';
 
 import Triangle from './public/icons/triangle.svg';
 
-const shape = require('./public/data/sightings_data/sightings.json')
-console.log(shape);
 
-const location = {latitude: shape.latitude, longitude: shape.longitude}
+
+const shape = fetch("./sightings.json").then(response => {
+    return response.json();
+}).then(data => console.log(data));
+
+const location = {latitude: Sightings.latitude, longitude: shape.longitude}
 console.log(location)
 
-const marker = (shape.shape, shape.location) => {
-    boomerang: Boomerang.location,
+const marker = (data) => (shape, location) => {
+    boomerang: Boomer
     cigar: Cigar.location,
     circle: Circle, 
     cross: Cross, 

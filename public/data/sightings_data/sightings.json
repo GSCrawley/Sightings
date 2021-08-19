@@ -1,3 +1,5 @@
+
+
 {
 "Sightings" : [
     {
@@ -183,6 +185,7 @@
       "date": "03/07/1992"
     },
     {
+        "shape": "boomerang",
       "latitude": "39.0383",
       "longitude": "-58.87661",
       "color": "green",

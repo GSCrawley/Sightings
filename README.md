@@ -2,11 +2,31 @@
 ## https://stackoverflow.com/questions/21397608/put-markers-to-a-map-generated-with-topojson-and-d3-js
 
 
-# Getting Started with Create React App
+## Displaying Places
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## As with the country polygons, the populated places are a feature collection, so we can again convert from TopoJSON to GeoJSON and use d3.geo.path to render:
 
-## Available Scripts
+## svg.append("path")
+     .datum(topojson.feature(uk, uk.objects.places))
+    .attr("d", path)
+    .attr("class", "place");
+## This will draw a small circle for each city. We can adjust the radius by setting path.pointRadius, and assign styles via CSS. But we also want labels, so we need a data join to create text elements. By computing the transform property by projecting the place’s coordinates, we translate the labels into the desired position:
+
+## svg.selectAll(".place-label")
+    .data(topojson.feature(uk, uk.objects.places).features)
+  .enter().append("text")
+    .attr("class", "place-label")
+    .attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; })
+    .attr("dy", ".35em")
+    .text(function(d) { return d.properties.name; });
+## Labeling a map well can be challenging, especially if you want to position labels automatically. We’ve mostly ignored the problem for our simple map, though it helps that we earlier filtered labels by SCALERANK. A convenient trick is to use right-aligned labels on the left side of the map, and left-aligned labels on the right side of the map, here using 1°W as the threshold:
+
+## svg.selectAll(".place-label")
+    .attr("x", function(d) { return d.geometry.coordinates[0] > -1 ? 6 : -6; })
+    .style("text-anchor", function(d) { return d.geometry.coordinates[0] > -1 ? "start" : "end"; });
+## As you can see below, this works reasonably well, though there remain a few overlapping labels (e.g., Nottingham, Coventry). If you’re so inclined, you can fix these by special-casing alternate alignment, or you could simply remove the offending labels. You could even try simulated annealing or force-directed layout, but I’ll leave automatic label placement for another day!#3
+
+
 
 In the project directory, you can run:
 
@@ -33,30 +53,9 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+### Deployment
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 ### Making a Progressive Web App
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
@@ -64,12 +63,9 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/m
 ### Advanced Configuration
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
 # Sightings
